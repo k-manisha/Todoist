@@ -8,12 +8,14 @@ export const Header = () => {
         <div className="logo">
           <img src="images/logo.png" alt="Todoist" width={30} height={30} />
         </div>
-        <ul>
-          <li>+</li>
-          <li>
-            <FaPaintBrush />
-          </li>
-        </ul>
+        <div className="settings">
+          <ul>
+            <li className="settings_add">+</li>
+            <li className="settings__darkmode">
+              <FaPaintBrush />
+            </li>
+          </ul>
+        </div>
       </nav>
     </header>
   );

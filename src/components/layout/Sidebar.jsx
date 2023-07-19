@@ -9,7 +9,7 @@ import {
 export const Sidebar = () => {
   return (
     <div className="sidebar" data-testid="sidebar">
-      <ul className="sidebar_content">
+      <ul className="sidebar__content">
         <li>
           <FaInbox />
           <span>Inbox</span>
@@ -24,14 +24,14 @@ export const Sidebar = () => {
         </li>
       </ul>
 
-      <div className="sidebar_middle">
+      <div className="sidebar__middle">
         <span>
           <FaChevronDown />
         </span>
         <h2>Projects</h2>
       </div>
 
-      <div className="sidebar_projects">Add project component here!</div>
+      <div className="sidebar__projects">Add project component here!</div>
     </div>
   );
 };
