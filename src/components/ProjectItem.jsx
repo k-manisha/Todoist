@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaTrashAlt, FaDotCircle } from "react-icons/fa";
 import { useProjectsValue, useSelectedProjectValue } from "../context";
-import { firebase } from "../firebase";
 import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
 export const ProjectItem = ({ project }) => {
@@ -25,6 +24,9 @@ export const ProjectItem = ({ project }) => {
         className="sidebar__project-delete"
         data-testid="delete-project"
         onClick={() => setShowConfirm(!showConfirm)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") setShowConfirm(!showConfirm);
+        }}
       >
         <FaTrashAlt />
         {showConfirm && (
@@ -37,7 +39,17 @@ export const ProjectItem = ({ project }) => {
               >
                 Delete
               </button>
-              <span onClick={() => setShowConfirm(!showConfirm)}>Cancel</span>
+              <span
+                onClick={() => setShowConfirm(!showConfirm)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") setShowConfirm(!showConfirm);
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label="Cancel adding project, do not delete"
+              >
+                Cancel
+              </span>
             </div>
           </div>
         )}

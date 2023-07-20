@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { isEqual } from "lodash";
 import moment from "moment";
 import {
   getFirestore,
@@ -18,7 +19,6 @@ export const useTasks = (selectedProject) => {
   useEffect(() => {
     const firestore = getFirestore();
     const tasksCollection = collection(firestore, "tasks");
-
     let unsubscribe = query(tasksCollection, where("userId", "==", "starVk"));
 
     if (selectedProject && !collatedTasksExist(selectedProject)) {
@@ -63,9 +63,8 @@ export const useProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const firestore = getFirestore();
+    const firestore = getFirestore(firebase);
     const projectsCollection = collection(firestore, "projects");
-
     const projectsQuery = query(
       projectsCollection,
       where("userId", "==", "starVk"),
@@ -74,11 +73,10 @@ export const useProjects = () => {
 
     const snapshotListener = onSnapshot(projectsQuery, (snapshot) => {
       const allProjects = snapshot.docs.map((project) => ({
-        ...project.data(),
         docId: project.id,
+        ...project.data(),
       }));
-
-      if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+      if (!isEqual(allProjects, projects)) {
         setProjects(allProjects);
       }
     });
